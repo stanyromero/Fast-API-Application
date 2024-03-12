@@ -25,7 +25,7 @@ docker push stanromero2003/fastapi-backend:1.1
 echo "SSH into EC2 machine"
 
 # SSH into the EC2 instance using the provided key pair and IP address
-ssh -i /home/stan_romero/AWS-key-pair.pem ubuntu@34.201.173.117 << 'EOF'
+ssh -i PAth/to/pem user_name@Your_IP << 'EOF'
 
 echo "Entering the shop-inventory-management folder"
 
@@ -53,7 +53,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - IP_HOST=34.201.173.117
+      - IP_HOST=Your_IP
     networks:
       - inet
 
@@ -61,8 +61,8 @@ services:
     image: postgres
     container_name: inventory_app_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
       POSTGRES_DB: items_db
     ports:
       - "5432:5432"
