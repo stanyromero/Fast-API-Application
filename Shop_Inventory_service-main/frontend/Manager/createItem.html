@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creation-of-items(Admin)</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>CREATE ITEM</h1>
+  <div class="overlay"></div>
+  <form id="myForm" method="post">
+
+    <input type="hidden" id="idInput" placeholder="Enter id" value="00" readonly>
+    <label for="nameInput">Item Name:</label>
+    <input type="text" id="nameInput" placeholder="Enter item name">
+    <label for="descriptionInput">Description:</label>
+    <select id="descriptionInput" >
+      <option value="">--select--</option>
+      <option value="Fruits and Veggies">Fruits and Veggies</option>
+      <option value="Diary Products">Diary Products</option>
+      <option value="Frozen Products">Frozen Products</option>
+      <option value="Groceries">Groceries</option>
+      <option value="Cosmetics">Cosmetics</option>
+      <option value="Stationary">Stationary</option>
+      <option value="Medicine">Medicine</option>
+    </select>
+    <label for="priceInput">Price:</label>
+    <input type="text" id="priceInput" placeholder="Enter price">   
+    <label>
+      On Offer: &nbsp &nbsp<input type="radio" name="onOffer" value="yes"> Yes
+              <input type="radio" name="onOffer" value="no"> No
+    </label>
+    <label for="stockInput">In Stock:</label>
+    <input type="number" id="stockInput" placeholder="Enter in-stock">
+    
+    <button type="submit" style="background-color: #04AA9D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;">Submit</button>
+    <div id="resultContainer"></div>
+  </form>
+
+  <!-- The link to viewItems.html -->
+  <a href="viewItems.html">Go to List of items</a>
+
+  <!-- The import form for Excel -->
+  <form id="myForm-import" method="post" enctype="multipart/form-data">
+    <center><input type="file" name="file" id="fileInput" accept=".xlsx"></center>
+    <button type="submit">Import</button>
+  </form>
+  
+  <script>
+      const form = document.getElementById('myForm');
+      const idInput = document.getElementById('idInput');
+      const nameInput = document.getElementById('nameInput');
+      const descriptionInput = document.getElementById('descriptionInput');
+      const priceInput = document.getElementById('priceInput');
+      const offerInput = document.getElementsByName('onOffer'); // Changed to use getElementsByName
+      const stockInput = document.getElementById('stockInput');
+      const resultContainer = document.getElementById('resultContainer');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form submission
+
+        const inputData = {
+          id: parseInt(idInput.value),
+          name: nameInput.value,
+          description: descriptionInput.value,
+          price: parseInt(priceInput.value),
+          on_offer: offerInput[0].checked ? true : false, // Changed to use the checked property of the radio buttons
+          in_stock: parseInt(stockInput.value),
+        };
+
+        // Send a POST request to create data
+        fetch('http://localhost:8000/items/create', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(inputData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Update the result container with the response data
+            resultContainer.textContent = `Created data: ${data.name}`;
+            // Redirect to viewItems.html after successful creation
+            // window.location.href = 'viewItems.html';
+          })
+          .catch((error) => {
+            // Display any error messages
+            resultContainer.textContent = `Error: ${error.message}`;
+          });
+      });
+      const importForm = document.getElementById('myForm-import');
+    const fileInput = document.getElementById('fileInput');
+
+    importForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent form submission
+
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+
+      fetch('http://localhost:8000/items/import/fromExcel', {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Items imported:', data);
+          // Redirect to viewItems.html after successful import
+          window.location.href = 'viewItems.html';
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          // Display error message or perform any other actions
+        });
+    });
+  </script>
+</body>
+</html>

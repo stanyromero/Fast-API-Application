@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Updation-of-Item(Admin)</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>UPDATE ITEM</h1>
+  <div class="overlay"></div>
+  <form id="updateForm">
+    <input type="hidden" id="itemId" name="itemId">
+    <label for="nameInput">Name:</label>
+    <input type="text" id="nameInput" name="nameInput" required><br>
+    <label for="descriptionInput">Description:</label>
+    <input type="text" id="descriptionInput" name="descriptionInput" required><br>
+    <label for="priceInput">Price:</label>
+    <input type="text" id="priceInput" name="priceInput" required><br>
+    <label for="offerInput">On Offer:</label>
+    <input type="text" id="offerInput" name="offerInput" required><br>
+    <label for="stockInput">In Stock:</label>
+    <input type="text" id="stockInput" name="stockInput" required><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    // Get the item ID from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemId = urlParams.get('id');
+
+    // Function to fetch the item data and populate the form
+    function fetchItemData() {
+      axios.get(`http://localhost:8000/item/get/specificItem/${itemId}`)
+        .then(response => {
+          const item = response.data;
+
+          // Populate the form inputs with item data
+          document.getElementById('itemId').value = item.id;
+          document.getElementById('nameInput').value = item.name;
+          document.getElementById('descriptionInput').value = item.description;
+          document.getElementById('priceInput').value = item.price;
+          document.getElementById('offerInput').value = item.on_offer;
+          document.getElementById('stockInput').value = item.in_stock;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    // Function to update the item data
+    function updateItemData() {
+      const form = document.getElementById('updateForm');
+
+      axios.put(`http://localhost:8000/item/update/${itemId}`, {
+        id: form.itemId.value,
+        name: form.nameInput.value,
+        description: form.descriptionInput.value,
+        price: form.priceInput.value,
+        on_offer: form.offerInput.value,
+        in_stock: form.stockInput.value
+      })
+        .then(() => {
+          // Redirect to the list of all items page
+          window.location.href = 'viewitems.html';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    // Fetch the item data when the page loads
+    fetchItemData();
+
+    // Handle form submission
+    const updateForm = document.getElementById('updateForm');
+    updateForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      updateItemData();
+    });
+  </script>
+</body>
+</html>

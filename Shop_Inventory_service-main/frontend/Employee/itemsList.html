@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List-of-Items(Employee)</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <h1>LIST OF ITEMS</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>On Offer</th>
+          <th>In Stock</th>
+        </tr>
+      </thead>
+      <tbody id="dataContainer"></tbody>
+    </table>
+
+      <a href="Billing/SaleReport(Billing).html">Create a Sale(Billing) Report</a>
+      <a href="Customer&SaleRepot.html">Go to Customer and Sale Details</a>
+ 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      // Function to fetch and display the data in itemslist webpage
+      const axiosFile = "https://unpkg.com/axios/dist/axios.min.js";
+      function fetchData() {
+        axios
+          .get("http://localhost:8000/items/getAll")
+          .then((response) => {
+            const data = response.data;
+            const dataContainer = document.getElementById("dataContainer");
+
+            // Clear the existing data
+            dataContainer.innerHTML = "";
+
+            // Loop through the data and create rows in the table
+            data.forEach((item) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+              <td style="text-align: center;">${item.id}</td>
+              <td style="text-align: center;">${item.name}</td>
+              <td style="text-align: center;">${item.description}</td>
+              <td style="text-align: center;">${item.price}</td>
+              <td style="text-align: center;">${item.on_offer ? "Yes" : "No"}</td>
+              <td style="text-align: center;">${item.in_stock}</td>
+
+      `;
+              dataContainer.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      fetchData();
+    </script>
+  </body>
+</html>

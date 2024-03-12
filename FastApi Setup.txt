@@ -1,0 +1,32 @@
+***** FastAPI setup for Shop_Inventory_Management System ***** 
+
+
+1> Go to the project folder 
+
+2> python -m venv venv
+
+3> venv\Scripts\activate
+
+4> Go to the backend folder (cd backend)
+
+5> pip install fastapi uvicorn sqlalchemy psycopg2-binary openpyxl pandas python-multipart
+
+6> pip install sqlalchemy (To connect to a SQL database)
+
+7> pip install psycopg2-binary
+
+8> pip install openpyxl (To import Excel files)
+
+9> pip install pandas
+
+10> pip install python-multipart
+
+Command to run the FastAPI:
+ 
+11> uvicorn main:app --reload(To run)
+
+
+
+Every pip install as a single command 
+
+pip install fastapi uvicorn sqlalchemy psycopg2-binary openpyxl pandas python-multipart

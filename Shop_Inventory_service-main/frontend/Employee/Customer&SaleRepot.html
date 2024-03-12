@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sale-Report(Employee)</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div class="overlay"></div>
+    <h1>CUSTOMER DETAILS</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>CUSTOMER ID</th>
+          <th>NAME</th>
+          <th>PHONE NUMBER</th>
+        </tr>
+      </thead>
+      <tbody id="customerDataContainer"></tbody>
+    </table>
+
+    <h1>SALE DETAILS</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>SALE ID</th>
+          <th>CUSTOMER ID</th>
+          <th>ITEM ID</th>
+          <th>QUANTITY</th>
+        </tr>
+      </thead>
+      <tbody id="saleDataContainer"></tbody>
+    </table>
+    <a href="Billing/SaleReport(Billing).html">Create a Sale(Billing) Report</a>
+    <a href="itemsList.html">Go to Items List</a>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      // Function to fetch and display the data in customer details table
+      function fetchDataCustomerDetails() {
+        axios
+          .get("http://localhost:8000/customerDetails/getAll")
+          .then((response) => {
+            const data = response.data;
+            const dataContainer = document.getElementById("customerDataContainer");
+
+            // Clear the existing data
+            dataContainer.innerHTML = "";
+
+            // Loop through the data and create rows in the table
+            data.forEach((customerDetails) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td style="text-align: center;">${customerDetails.customer_id}</td>
+                <td style="text-align: center;">${customerDetails.customer_name}</td>
+                <td style="text-align: center;">${customerDetails.phone_number}</td>
+              `;
+              dataContainer.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      fetchDataCustomerDetails();
+
+      // Function to fetch and display the data in sale details table
+      function fetchDataSaleDetails() {
+        axios
+          .get("http://localhost:8000/SaleReport/getAll")
+          .then((response) => {
+            const data = response.data;
+            const dataContainer = document.getElementById("saleDataContainer");
+
+            // Clear the existing data
+            dataContainer.innerHTML = "";
+
+            // Loop through the data and create rows in the table
+            data.forEach((saleDetails) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td style="text-align: center;">${saleDetails.sale_id}</td>
+                <td style="text-align: center;">${saleDetails.customer_id}</td>
+                <td style="text-align: center;">${saleDetails.item_id}</td>
+                <td style="text-align: center;">${saleDetails.quantity}</td>
+              `;
+              dataContainer.appendChild(row);
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      fetchDataSaleDetails();
+    </script>
+  </body>
+</html>

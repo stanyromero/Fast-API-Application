@@ -1,0 +1,164 @@
+/* Shared Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+    url(../resources/shop-background.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #04aa9d;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #04aa9d;
+  text-decoration: none;
+}
+
+/* index.html Styles */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+select,
+input[type="text"],
+input[type="number"],
+button[type="submit"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#resultContainer {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 500px;
+  border: 5px;
+  margin: auto;
+}
+
+/* viewitems.html Styles */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+td {
+  color: floralwhite;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+td button {
+  padding: 5px 10px;
+  background-color: #e852b3;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+td button:hover {
+  background-color: #2d2267;
+}
+
+/* updateitems.html Styles */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+label {
+  color: white;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 500px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #04aa9d;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  width: 517px;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Adjust the opacity (last value) to dim the picture */
+  z-index: -1;
+}
+a:hover {
+  color: white;
+}
+
+#fileInput {
+  color: #04aa9d;
+  height: 50px;
+}
+
+#fileInput:hover {
+  color: white;
+}

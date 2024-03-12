@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.86)),
+  url(../../resources/shop-background.jpg);
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+h1 {
+  text-align: center;
+  color: #04aa9d;
+  margin-bottom: 20px;
+}
+
+label,
+input {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.item-row span {
+  margin-right: 10px;
+}
+
+.submit-button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #04aa9d;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+#itemList {
+  margin-top: 20px;
+}
+
+button[type="button"] {
+  padding: 5px 10px;
+  background-color: #e852b3;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+button[type="button"]:hover {
+  background-color: #060315;
+}
+
+a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #04aa9d;
+  text-decoration: none;
+}

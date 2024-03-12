@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>List-of-Items(Admin)</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="overlay"></div>
+  <h1>LIST OF ITEMS</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>On Offer</th>
+        <th>In Stock</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="dataContainer"></tbody>
+  </table>
+
+  <a href="createItem.html"><button type="submit" style="background-color: #04AA9D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;" >Create a new item</button></a>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    // Function to fetch and display the data
+    function fetchData() {
+      axios.get('http://localhost:8000/items/getAll')
+        .then(response => {
+          const data = response.data;
+          const dataContainer = document.getElementById('dataContainer');
+
+          // Clear the existing data
+          dataContainer.innerHTML = '';
+
+          // Loop through the data and create rows in the table
+          data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td style="text-align: center;">${item.id}</td>
+              <td style="text-align: center;">${item.name}</td>
+              <td style="text-align: center;">${item.description}</td>
+              <td style="text-align: center;">${item.price}</td>
+              <td style="text-align: center;">${item.on_offer ? 'Yes' : 'No'}</td>
+              <td style="text-align: center;">${item.in_stock}</td>
+              <td style="text-align: center;">
+                <button onclick="deleteItem(${item.id})">Delete</button>
+                <button onclick="redirectToUpdate(${item.id})">Update</button>
+              </td>
+            `;
+            dataContainer.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    // Function to delete an item
+    function deleteItem(itemId) {
+      axios.delete(`http://localhost:8000/item/delete/${itemId}`)
+        .then(response => {
+          console.log('Item deleted:', response.data);
+          fetchData(); // Fetch updated data after deletion
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    // Function to redirect to the update item page
+    function redirectToUpdate(itemId) {
+      window.location.href = `update.html?id=${itemId}`;
+    }
+
+    // Fetch data when the page loads
+    fetchData();
+  </script>
+</body>
+</html>
